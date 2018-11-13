@@ -1,4 +1,3 @@
-```
 var debug = require('debug')('koa-router');
 // Turn a path string such as /user/:name into a regular expression
 var pathToRegExp = require('path-to-regexp');
@@ -236,5 +235,3 @@ function safeDecodeURIComponent(text) {
     return text;
   }
 }
-
-```

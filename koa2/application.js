@@ -1,5 +1,9 @@
-```
+
+'use strict';
 // 程序主入口文件
+/**
+ * Module dependencies.
+ */
 // Is this a native generator function
 const isGeneratorFunction = require('is-generator-function');
 // A tiny JavaScript debugging utility
@@ -49,21 +53,22 @@ module.exports = class Application extends Emitter {
     }
   }
 
-  //  listen创建服务内部调用步骤:
-  // callback => createContext => handleRequest => fnMiddleware => respond
-  
-   // 封装了http的createServer, 因此如果使用http创建服务需要如下步骤
-   // const app = new Koa()
-   // const server = http.createServer(app.callback());
-   // server.listen(...)
- 
- listen(...args) {
+  /**
+   * listen创建服务内部调用步骤:
+   * callback => createContext => handleRequest => fnMiddleware => respond
+   *
+   * 封装了http的createServer, 因此如果使用http创建服务需要如下步骤
+   * const app = new Koa()
+   * const server = http.createServer(app.callback());
+   * server.listen(...)
+   */
+  listen(...args) {
     debug('listen');
     const server = http.createServer(this.callback());
     return server.listen(...args);
   }
 
-toJSON() {
+  toJSON() {
     return only(this, [
       'subdomainOffset',
       'proxy',
@@ -119,11 +124,11 @@ toJSON() {
 
   /*
    该函数重点工作:
-   将context的request，response挂载到自己封装的request，response。即koa request，koa response
-   将this赋给ctx.app
-   将http原生req, res赋给ctx.req, ctx.res
-   创建ctx.state
-   创建返回 ctx {
+   1. 将context的request，response挂载到自己封装的request，response。即koa request，koa response
+   2. 将this赋给ctx.app
+   3. 将http原生req, res赋给ctx.req, ctx.res
+   4. 创建ctx.state
+   5. 创建返回 ctx {
      res,
      req,
      request,
@@ -133,6 +138,7 @@ toJSON() {
      app,
      ...this.context
     }
+
   */
   createContext(req, res) {
     const context = Object.create(this.context);
@@ -162,6 +168,10 @@ toJSON() {
     console.error();
   }
 };
+
+/**
+ * Response helper.
+ */
 
 function respond(ctx) {
   // ctx.respond 绕过koa内置响应处理；不建议使用
@@ -194,7 +204,7 @@ function respond(ctx) {
     body = ctx.message || String(code);
     if (!res.headersSent) {
       ctx.type = 'text';
-      ctx.length = **Buffer.byteLength(body);**
+      ctx.length = Buffer.byteLength(body);
     }
     return res.end(body);
   }
@@ -211,4 +221,3 @@ function respond(ctx) {
   }
   res.end(body);
 }
-```

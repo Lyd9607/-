@@ -1,4 +1,5 @@
-```
+'use strict';
+
 /**
  * Expose compositor.
  */
@@ -49,5 +50,3 @@ function compose(middleware) {
     }
   }
 }
-
-```

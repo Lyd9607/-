@@ -1,4 +1,3 @@
-```
 /**
  * RESTful resource routing middleware for koa.
  *
@@ -528,5 +527,3 @@ Router.url = function (path, params) {
     var args = Array.prototype.slice.call(arguments, 1);
     return Layer.prototype.url.apply({ path: path }, args);
 };
-
-```
