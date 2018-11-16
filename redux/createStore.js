@@ -99,6 +99,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * @param {Function} listener A callback to be invoked on every dispatch.
    * @returns {Function} A function to remove this change listener.
    */
+
+  // 注册监听器，监听store的变化，每当store改变的时候会调用所有监听器
+  // 返回一个注销监听器的方法
   function subscribe(listener) {
     if (typeof listener !== 'function') {
       throw new Error('Expected the listener to be a function.')
